@@ -31,7 +31,7 @@
     <string name="no_ble">Device doesn\'t have BLE support!</string>
     <string name="no_apps">No profiles found.</string>
     <string name="not_supported">The device does not have required services.</string>
-    <string name="no_application">Web Borswer application is not available.</string>
+    <string name="no_application">Web Browser application is not available.</string>
     <string name="scanner_title">Select device:</string>
     <string name="scanner_empty">No device found</string>
     <string name="scanner_action_scan">Scan</string>
@@ -79,7 +79,7 @@
     
     <string name="title_module_detail">Module Detail</string>
     
-    <string name="mw_about_text">The MetaWear app provides a GUI for interacting with a MetaWear board and serves as an example on how to use the MetaWear API.</string>
+    <string name="mw_about_text">The Anti-Fitness app will notify you via the MetaWear API when your favourite shows are on DStv. This app is not meant to be anything but a demo, so it really isn\'t serious!</string>
 
     <string name="font_path">fonts/trebucbd.ttf</string>
     <string name="normal_font_path">fonts/trebuc.ttf</string>
