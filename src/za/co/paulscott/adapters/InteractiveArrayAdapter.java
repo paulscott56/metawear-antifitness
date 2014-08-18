@@ -47,8 +47,9 @@ public class InteractiveArrayAdapter extends ArrayAdapter<DStvHighlights> {
 			@Override
 			public void onClick(View v) {
 				DStvHighlights highlight = getItem(position);
-				
-				SimpleDateFormat formatter = new SimpleDateFormat("EE, dd MMM HH:mm");
+
+				SimpleDateFormat formatter = new SimpleDateFormat(
+						"EE, dd MMM HH:mm");
 				String dt = highlight.getShowtime();
 
 				try {
@@ -59,26 +60,23 @@ public class InteractiveArrayAdapter extends ArrayAdapter<DStvHighlights> {
 					c.set(Calendar.YEAR, year);
 					showdate = c.getTime();
 					long showMillis = showdate.getTime();
-					
-					pushAppointmentsToCalender(getContext(),
-							"Watch DStv", highlight.getDescription(),
-							highlight.getAuthor(), highlight.getAuthor(), 1,
-							showMillis, true);
+
+					pushAppointmentsToCalender(getContext(), "Watch DStv",
+							highlight.getDescription(), highlight.getAuthor(),
+							highlight.getAuthor(), 1, showMillis, true);
 					Toast.makeText(getContext(),
 							"Show has been added to your Calendar",
 							Toast.LENGTH_SHORT).show();
 					startAlert(showMillis);
 					// debug code...
-//					Intent intent = new Intent();
-//					intent.setAction("za.co.paulscott.antifitness.mwbroadcast");
-//					getContext().sendBroadcast(intent);
-					
-				
+					// Intent intent = new Intent();
+					// intent.setAction("za.co.paulscott.antifitness.mwbroadcast");
+					// getContext().sendBroadcast(intent);
+
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
 
 			}
 		};
@@ -172,7 +170,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<DStvHighlights> {
 		Date date = new Date(timeInMillis);
 		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 		String dateFormatted = formatter.format(date);
-		Toast.makeText(getContext(), "Alarm set for " + dateFormatted ,
+		Toast.makeText(getContext(), "Alarm set for " + dateFormatted,
 				Toast.LENGTH_LONG).show();
 	}
 

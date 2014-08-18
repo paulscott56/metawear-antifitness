@@ -10,8 +10,8 @@
 /*
  * NORDIC SEMICONDUTOR EXAMPLE CODE AND LICENSE AGREEMENT
  *
- * You are receiving this document because you have obtained example code (“Software”) 
- * from Nordic Semiconductor ASA * (“Licensor”). The Software is protected by copyright 
+ * You are receiving this document because you have obtained example code (ï¿½Softwareï¿½) 
+ * from Nordic Semiconductor ASA * (ï¿½Licensorï¿½). The Software is protected by copyright 
  * laws and international treaties. All intellectual property rights related to the 
  * Software is the property of the Licensor. This document is a license agreement governing 
  * your rights and obligations regarding usage of the Software. Any variation to the terms 
@@ -36,7 +36,7 @@
  * You are not allowed to remove, alter or destroy any proprietary, 
  * trademark or copyright markings or notices placed upon or contained with the Software.
  *     
- * You shall not use Licensor’s name or trademarks without Licensor’s prior consent.
+ * You shall not use Licensorï¿½s name or trademarks without Licensorï¿½s prior consent.
  * 
  * == Disclaimer of warranties and limitation of liability ==
  * 
@@ -72,7 +72,7 @@
  * == Contact information ==
  * 
  * All requests regarding the Software or the API shall be directed to: 
- * Nordic Semiconductor ASA, P.O. Box 436, Skøyen, 0213 Oslo, Norway.
+ * Nordic Semiconductor ASA, P.O. Box 436, Skï¿½yen, 0213 Oslo, Norway.
  * 
  * http://www.nordicsemi.com/eng/About-us/Contact-us
  */
@@ -85,7 +85,8 @@ import android.bluetooth.BluetoothDevice;
 import android.util.Log;
 
 /**
- * ScannerServiceParser is responsible to parse scanning data and it check if scanned device has required service in it.
+ * ScannerServiceParser is responsible to parse scanning data and it check if
+ * scanned device has required service in it.
  */
 public class ScannerServiceParser {
 	private static final String TAG = "ScannerServiceParser";
@@ -104,14 +105,19 @@ public class ScannerServiceParser {
 	private static final byte LE_GENERAL_DISCOVERABLE_MODE = 0x02;
 
 	/**
-	 * Checks if device is connectable (as Android cannot get this information directly we just check if it has GENERAL DISCOVERABLE or LIMITED DISCOVERABLE flag set) and has required service UUID in
-	 * the advertising packet. The service UUID may be <code>null</code>.
+	 * Checks if device is connectable (as Android cannot get this information
+	 * directly we just check if it has GENERAL DISCOVERABLE or LIMITED
+	 * DISCOVERABLE flag set) and has required service UUID in the advertising
+	 * packet. The service UUID may be <code>null</code>.
 	 * <p>
-	 * For further details on parsing BLE advertisement packet data see https://developer.bluetooth.org/Pages/default.aspx Bluetooth Core Specifications Volume 3, Part C, and Section 8
+	 * For further details on parsing BLE advertisement packet data see
+	 * https://developer.bluetooth.org/Pages/default.aspx Bluetooth Core
+	 * Specifications Volume 3, Part C, and Section 8
 	 * </p>
 	 */
 	public static boolean decodeDeviceAdvData(byte[] data, UUID requiredUUID) {
-		final String uuid = requiredUUID != null ? requiredUUID.toString() : null;
+		final String uuid = requiredUUID != null ? requiredUUID.toString()
+				: null;
 		if (data != null) {
 			boolean connectable = false;
 			boolean valid = uuid == null;
@@ -125,15 +131,22 @@ public class ScannerServiceParser {
 				fieldName = data[++index];
 
 				if (uuid != null) {
-					if (fieldName == SERVICES_MORE_AVAILABLE_16_BIT || fieldName == SERVICES_COMPLETE_LIST_16_BIT) {
+					if (fieldName == SERVICES_MORE_AVAILABLE_16_BIT
+							|| fieldName == SERVICES_COMPLETE_LIST_16_BIT) {
 						for (int i = index + 1; i < index + fieldLength - 1; i += 2)
-							valid = valid || decodeService16BitUUID(uuid, data, i, 2);
-					} else if (fieldName == SERVICES_MORE_AVAILABLE_32_BIT || fieldName == SERVICES_COMPLETE_LIST_32_BIT) {
+							valid = valid
+									|| decodeService16BitUUID(uuid, data, i, 2);
+					} else if (fieldName == SERVICES_MORE_AVAILABLE_32_BIT
+							|| fieldName == SERVICES_COMPLETE_LIST_32_BIT) {
 						for (int i = index + 1; i < index + fieldLength - 1; i += 4)
-							valid = valid || decodeService32BitUUID(uuid, data, i, 4);
-					} else if (fieldName == SERVICES_MORE_AVAILABLE_128_BIT || fieldName == SERVICES_COMPLETE_LIST_128_BIT) {
+							valid = valid
+									|| decodeService32BitUUID(uuid, data, i, 4);
+					} else if (fieldName == SERVICES_MORE_AVAILABLE_128_BIT
+							|| fieldName == SERVICES_COMPLETE_LIST_128_BIT) {
 						for (int i = index + 1; i < index + fieldLength - 1; i += 16)
-							valid = valid || decodeService128BitUUID(uuid, data, i, 16);
+							valid = valid
+									|| decodeService128BitUUID(uuid, data, i,
+											16);
 					}
 				}
 				if (fieldName == FLAGS_BIT) {
@@ -148,8 +161,12 @@ public class ScannerServiceParser {
 	}
 
 	/**
-	 * Decodes the device name from Complete Local Name or Shortened Local Name field in Advertisement packet. Ususally if should be done by {@link BluetoothDevice#getName()} method but some phones
-	 * skips that, f.e. Sony Xperia Z1 (C6903) with Android 4.3 where getName() always returns <code>null</code>. In order to show the device name correctly we have to parse it manually :(
+	 * Decodes the device name from Complete Local Name or Shortened Local Name
+	 * field in Advertisement packet. Ususally if should be done by
+	 * {@link BluetoothDevice#getName()} method but some phones skips that, f.e.
+	 * Sony Xperia Z1 (C6903) with Android 4.3 where getName() always returns
+	 * <code>null</code>. In order to show the device name correctly we have to
+	 * parse it manually :(
 	 */
 	public static String decodeDeviceName(byte[] data) {
 		String name = null;
@@ -161,7 +178,8 @@ public class ScannerServiceParser {
 				break;
 			fieldName = data[++index];
 
-			if (fieldName == COMPLETE_LOCAL_NAME || fieldName == SHORTENED_LOCAL_NAME) {
+			if (fieldName == COMPLETE_LOCAL_NAME
+					|| fieldName == SHORTENED_LOCAL_NAME) {
 				name = decodeLocalName(data, index + 1, fieldLength - 1);
 				break;
 			}
@@ -173,7 +191,8 @@ public class ScannerServiceParser {
 	/**
 	 * Decodes the local name
 	 */
-	public static String decodeLocalName(final byte[] data, final int start, final int length) {
+	public static String decodeLocalName(final byte[] data, final int start,
+			final int length) {
 		try {
 			return new String(data, start, length, "UTF-8");
 		} catch (final UnsupportedEncodingException e) {
@@ -188,8 +207,10 @@ public class ScannerServiceParser {
 	/**
 	 * check for required Service UUID inside device
 	 */
-	private static boolean decodeService16BitUUID(String uuid, byte[] data, int startPosition, int serviceDataLength) {
-		String serviceUUID = Integer.toHexString(decodeUuid16(data, startPosition));
+	private static boolean decodeService16BitUUID(String uuid, byte[] data,
+			int startPosition, int serviceDataLength) {
+		String serviceUUID = Integer.toHexString(decodeUuid16(data,
+				startPosition));
 		String requiredUUID = uuid.substring(4, 8);
 
 		return serviceUUID.equals(requiredUUID);
@@ -198,8 +219,10 @@ public class ScannerServiceParser {
 	/**
 	 * check for required Service UUID inside device
 	 */
-	private static boolean decodeService32BitUUID(String uuid, byte[] data, int startPosition, int serviceDataLength) {
-		String serviceUUID = Integer.toHexString(decodeUuid16(data, startPosition + serviceDataLength - 4));
+	private static boolean decodeService32BitUUID(String uuid, byte[] data,
+			int startPosition, int serviceDataLength) {
+		String serviceUUID = Integer.toHexString(decodeUuid16(data,
+				startPosition + serviceDataLength - 4));
 		String requiredUUID = uuid.substring(4, 8);
 
 		return serviceUUID.equals(requiredUUID);
@@ -208,8 +231,10 @@ public class ScannerServiceParser {
 	/**
 	 * check for required Service UUID inside device
 	 */
-	private static boolean decodeService128BitUUID(String uuid, byte[] data, int startPosition, int serviceDataLength) {
-		String serviceUUID = Integer.toHexString(decodeUuid16(data, startPosition + serviceDataLength - 4));
+	private static boolean decodeService128BitUUID(String uuid, byte[] data,
+			int startPosition, int serviceDataLength) {
+		String serviceUUID = Integer.toHexString(decodeUuid16(data,
+				startPosition + serviceDataLength - 4));
 		String requiredUUID = uuid.substring(4, 8);
 
 		return serviceUUID.equals(requiredUUID);

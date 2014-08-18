@@ -80,7 +80,7 @@ package no.nordicsemi.android.nrftoolbox.scanner;
 
 import java.util.ArrayList;
 
-
+import za.co.paulscott.antifitness.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,7 +90,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * DeviceListAdapter class is list adapter for showing scanned Devices name, address and RSSI image based on RSSI values.
+ * DeviceListAdapter class is list adapter for showing scanned Devices name,
+ * address and RSSI image based on RSSI values.
  */
 public class DeviceListAdapter extends BaseAdapter {
 	private static final int TYPE_TITLE = 0;
@@ -112,7 +113,8 @@ public class DeviceListAdapter extends BaseAdapter {
 	}
 
 	/**
-	 * Looks for the device with the same address as given one in the list of bonded devices. If the device has been found it updates its RSSI value.
+	 * Looks for the device with the same address as given one in the list of
+	 * bonded devices. If the device has been found it updates its RSSI value.
 	 * 
 	 * @param address
 	 *            the device address
@@ -123,14 +125,16 @@ public class DeviceListAdapter extends BaseAdapter {
 		comparator.address = address;
 		final int indexInBonded = mListBondedValues.indexOf(comparator);
 		if (indexInBonded >= 0) {
-			ExtendedBluetoothDevice previousDevice = mListBondedValues.get(indexInBonded);
+			ExtendedBluetoothDevice previousDevice = mListBondedValues
+					.get(indexInBonded);
 			previousDevice.rssi = rssi;
 			notifyDataSetChanged();
 		}
 	}
 
 	/**
-	 * If such device exists on the bonded device list, this method does nothing. If not then the device is updated (rssi value) or added.
+	 * If such device exists on the bonded device list, this method does
+	 * nothing. If not then the device is updated (rssi value) or added.
 	 * 
 	 * @param device
 	 *            the device to be added or updated
@@ -143,7 +147,8 @@ public class DeviceListAdapter extends BaseAdapter {
 
 		final int indexInNotBonded = mListValues.indexOf(device);
 		if (indexInNotBonded >= 0) {
-			ExtendedBluetoothDevice previousDevice = mListValues.get(indexInNotBonded);
+			ExtendedBluetoothDevice previousDevice = mListValues
+					.get(indexInNotBonded);
 			previousDevice.rssi = device.rssi;
 			notifyDataSetChanged();
 			return;
@@ -160,7 +165,8 @@ public class DeviceListAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		final int bondedCount = mListBondedValues.size() + 1; // 1 for the title
-		final int availableCount = mListValues.isEmpty() ? 2 : mListValues.size() + 1; // 1 for title, 1 for empty text
+		final int availableCount = mListValues.isEmpty() ? 2 : mListValues
+				.size() + 1; // 1 for title, 1 for empty text
 		if (bondedCount == 1)
 			return availableCount;
 		return bondedCount + availableCount;
@@ -205,7 +211,8 @@ public class DeviceListAdapter extends BaseAdapter {
 		if (position == 0)
 			return TYPE_TITLE;
 
-		if (!mListBondedValues.isEmpty() && position == mListBondedValues.size() + 1)
+		if (!mListBondedValues.isEmpty()
+				&& position == mListBondedValues.size() + 1)
 			return TYPE_TITLE;
 
 		if (position == getCount() - 1 && mListValues.isEmpty())
@@ -228,19 +235,22 @@ public class DeviceListAdapter extends BaseAdapter {
 		switch (type) {
 		case TYPE_EMPTY:
 			if (view == null) {
-				view = inflater.inflate(R.layout.device_list_empty, parent, false);
+				view = inflater.inflate(R.layout.device_list_empty, parent,
+						false);
 			}
 			break;
 		case TYPE_TITLE:
 			if (view == null) {
-				view = inflater.inflate(R.layout.device_list_title, parent, false);
+				view = inflater.inflate(R.layout.device_list_title, parent,
+						false);
 			}
 			final TextView title = (TextView) view;
 			title.setText((Integer) getItem(position));
 			break;
 		default:
 			if (view == null) {
-				view = inflater.inflate(R.layout.device_list_row, parent, false);
+				view = inflater
+						.inflate(R.layout.device_list_row, parent, false);
 				final ViewHolder holder = new ViewHolder();
 				holder.name = (TextView) view.findViewById(R.id.name);
 				holder.address = (TextView) view.findViewById(R.id.address);
@@ -251,7 +261,8 @@ public class DeviceListAdapter extends BaseAdapter {
 			final ExtendedBluetoothDevice device = (ExtendedBluetoothDevice) getItem(position);
 			final ViewHolder holder = (ViewHolder) view.getTag();
 			final String name = device.name;
-			holder.name.setText(name != null ? name : mContext.getString(R.string.not_available));
+			holder.name.setText(name != null ? name : mContext
+					.getString(R.string.not_available));
 			holder.address.setText(device.device.getAddress());
 			if (!device.isBonded || device.rssi != ScannerFragment.NO_RSSI) {
 				final int rssiPercent = (int) (100.0f * (127.0f + device.rssi) / (127.0f + 20.0f));

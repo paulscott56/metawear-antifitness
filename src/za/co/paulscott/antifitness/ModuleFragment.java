@@ -43,42 +43,53 @@ import android.support.v4.app.Fragment;
 
 /**
  * @author etsai
- *
+ * 
  */
-public abstract class ModuleFragment extends Fragment implements ServiceConnection {
-    protected MetaWearController mwController;
-    private MetaWearBLEService mwService;
+public abstract class ModuleFragment extends Fragment implements
+		ServiceConnection {
+	protected MetaWearController mwController;
+	private MetaWearBLEService mwService;
 
-    public void clearBluetoothDevice() { }
-    
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        activity.getApplicationContext().bindService(new Intent(activity,MetaWearBLEService.class), 
-                this, Context.BIND_AUTO_CREATE);
-    }
-    
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        getActivity().getApplicationContext().unbindService(this);
-    }
-    
-    /* (non-Javadoc)
-     * @see android.content.ServiceConnection#onServiceConnected(android.content.ComponentName, android.os.IBinder)
-     */
-    @Override
-    public void onServiceConnected(ComponentName name, IBinder service) {
-        mwService= ((MetaWearBLEService.LocalBinder) service).getService();
-        mwController= mwService.getMetaWearController();
-    }
+	public void clearBluetoothDevice() {
+	}
 
-    /* (non-Javadoc)
-     * @see android.content.ServiceConnection#onServiceDisconnected(android.content.ComponentName)
-     */
-    @Override
-    public void onServiceDisconnected(ComponentName name) {
-        // TODO Auto-generated method stub
-        
-    }
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		activity.getApplicationContext().bindService(
+				new Intent(activity, MetaWearBLEService.class), this,
+				Context.BIND_AUTO_CREATE);
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		getActivity().getApplicationContext().unbindService(this);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.content.ServiceConnection#onServiceConnected(android.content.
+	 * ComponentName, android.os.IBinder)
+	 */
+	@Override
+	public void onServiceConnected(ComponentName name, IBinder service) {
+		mwService = ((MetaWearBLEService.LocalBinder) service).getService();
+		mwController = mwService.getMetaWearController();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.content.ServiceConnection#onServiceDisconnected(android.content
+	 * .ComponentName)
+	 */
+	@Override
+	public void onServiceDisconnected(ComponentName name) {
+		// TODO Auto-generated method stub
+
+	}
 }

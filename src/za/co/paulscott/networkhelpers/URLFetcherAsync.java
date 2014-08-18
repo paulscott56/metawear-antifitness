@@ -9,7 +9,6 @@ import com.loopj.android.http.*;
 
 public class URLFetcherAsync {
 
-	
 	private final String BASE_URL = "http://mobi.dstv.com/highlights/";
 	private final String TAG = "URLFetcher";
 	private PersistentCookieStore myCookieStore;
@@ -20,12 +19,13 @@ public class URLFetcherAsync {
 		myCookieStore = new PersistentCookieStore(context);
 		client.setCookieStore(myCookieStore);
 		// set up the EPG Cookie
-		BasicClientCookie epgCookie = new BasicClientCookie("EPGService", "40_1");
+		BasicClientCookie epgCookie = new BasicClientCookie("EPGService",
+				"40_1");
 		epgCookie.setVersion(1);
 		epgCookie.setDomain("mobi.dstv.com");
 		epgCookie.setPath("/");
 		myCookieStore.addCookie(epgCookie);
-		
+
 		BasicClientCookie mwCookie = new BasicClientCookie("mw", "800");
 		mwCookie.setVersion(1);
 		mwCookie.setDomain(".mobi.dstv.com");

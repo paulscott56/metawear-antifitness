@@ -10,8 +10,8 @@
 /*
  * NORDIC SEMICONDUTOR EXAMPLE CODE AND LICENSE AGREEMENT
  *
- * You are receiving this document because you have obtained example code (“Software”) 
- * from Nordic Semiconductor ASA * (“Licensor”). The Software is protected by copyright 
+ * You are receiving this document because you have obtained example code (ï¿½Softwareï¿½) 
+ * from Nordic Semiconductor ASA * (ï¿½Licensorï¿½). The Software is protected by copyright 
  * laws and international treaties. All intellectual property rights related to the 
  * Software is the property of the Licensor. This document is a license agreement governing 
  * your rights and obligations regarding usage of the Software. Any variation to the terms 
@@ -36,7 +36,7 @@
  * You are not allowed to remove, alter or destroy any proprietary, 
  * trademark or copyright markings or notices placed upon or contained with the Software.
  *     
- * You shall not use Licensor’s name or trademarks without Licensor’s prior consent.
+ * You shall not use Licensorï¿½s name or trademarks without Licensorï¿½s prior consent.
  * 
  * == Disclaimer of warranties and limitation of liability ==
  * 
@@ -72,7 +72,7 @@
  * == Contact information ==
  * 
  * All requests regarding the Software or the API shall be directed to: 
- * Nordic Semiconductor ASA, P.O. Box 436, Skøyen, 0213 Oslo, Norway.
+ * Nordic Semiconductor ASA, P.O. Box 436, Skï¿½yen, 0213 Oslo, Norway.
  * 
  * http://www.nordicsemi.com/eng/About-us/Contact-us
  */
@@ -82,12 +82,16 @@ import android.bluetooth.BluetoothDevice;
 
 public class ExtendedBluetoothDevice {
 	public BluetoothDevice device;
-	/** The name is not parsed by some Android devices, f.e. Sony Xperia Z1 with Android 4.3 (C6903). It needs to be parsed manually. */
+	/**
+	 * The name is not parsed by some Android devices, f.e. Sony Xperia Z1 with
+	 * Android 4.3 (C6903). It needs to be parsed manually.
+	 */
 	public String name;
 	public int rssi;
 	public boolean isBonded;
 
-	public ExtendedBluetoothDevice(BluetoothDevice device, String name, int rssi, boolean isBonded) {
+	public ExtendedBluetoothDevice(BluetoothDevice device, String name,
+			int rssi, boolean isBonded) {
 		this.device = device;
 		this.name = name;
 		this.rssi = rssi;
@@ -104,8 +108,12 @@ public class ExtendedBluetoothDevice {
 	}
 
 	/**
-	 * Class used as a temporary comparator to find the device in the List of {@link ExtendedBluetoothDevice}s. This must be done this way, because List#indexOf and List#contains use the parameter's
-	 * equals method, not the object's from list. See {@link DeviceListAdapter#updateRssiOfBondedDevice(String, int)} for example
+	 * Class used as a temporary comparator to find the device in the List of
+	 * {@link ExtendedBluetoothDevice}s. This must be done this way, because
+	 * List#indexOf and List#contains use the parameter's equals method, not the
+	 * object's from list. See
+	 * {@link DeviceListAdapter#updateRssiOfBondedDevice(String, int)} for
+	 * example
 	 */
 	public static class AddressComparator {
 		public String address;
